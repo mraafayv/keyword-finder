@@ -2,8 +2,8 @@ name: Bonus Scan
 
 on:
   schedule:
-    # Every 12 hours at minute 0 (UTC)
-    - cron: "*/5 * * * *"
+    # Every 4 hours at minute 0 (UTC)
+    - cron: "0 */4 * * *"
   workflow_dispatch: {}  # let you run it by hand too
 
 permissions:
