@@ -34,4 +34,4 @@ jobs:
           TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
           START_URL: ${{ vars.START_URL }}
         run: |
-          python your_script.py
+          python watch_links.py
