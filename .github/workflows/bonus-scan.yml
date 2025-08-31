@@ -1,0 +1,37 @@
+name: Bonus Scan
+
+on:
+  schedule:
+    # Every 12 hours at minute 0 (UTC)
+    - cron: "0 */12 * * *"
+  workflow_dispatch: {}  # let you run it by hand too
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Run scanner
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
+          START_URL: ${{ vars.START_URL }}
+        run: |
+          python your_script.py
